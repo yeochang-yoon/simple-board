@@ -9,15 +9,17 @@
 - Repository / 협업환경 구성: 최종 정리까지 완료, 실제 Workflow와 Template 적용 검증 완료
 - Project Kickoff: 범위 합의 완료
 - MVP 요구사항: 세부 규칙과 검증 시나리오 합의 완료 (2026-10-05)
-- 현재 작업: [Issue #8](https://github.com/yeochang-yoon/simple-board/issues/8)의 Kickoff / 요구사항 문서 PR 반영 및 사용자 Review / Merge
-- 다음 Lifecycle 작업: 문서 PR 반영 후 초기 설계
+- Kickoff / 요구사항 문서 반영: [PR #9](https://github.com/yeochang-yoon/simple-board/pull/9) merged, [Issue #8](https://github.com/yeochang-yoon/simple-board/issues/8) completed
+- 초기 설계: 전체 합의 완료 (2026-10-05). 저장 구조 / 시간 처리 / 정렬·Index / Transaction·실패 처리 / Migration·검증까지 수용
+- 현재 작업: [Issue #10](https://github.com/yeochang-yoon/simple-board/issues/10)의 초기 설계 문서 PR 반영 및 사용자 Review / Merge
+- 다음 Lifecycle 작업: 설계 문서 Merge와 Git 정리 후 Phase 3 Backend 개발 기반 구축
 - 서비스 주제: 아주 간단한 CRUD 게시판 (2026-10-05 사용자 명시 선택)
 - 프로젝트 목적: 간단한 기능으로 웹서비스 개발 전체 Lifecycle을 경험한 뒤, 사용자가 원하는 후속 프로젝트에 적용한다.
 - 주요 사용자: 게시판에 접근하는 누구나. 회원가입 / 로그인 없이 모든 게시글의 작성·목록 및 상세 조회·수정·삭제가 가능하다.
 - 첫 MVP에서 회원가입, 로그인, 인증/인가, 작성자 구분과 작성자별 수정·삭제 권한을 제외한다.
 - 애플리케이션 개발은 아직 시작하지 않았다. 입력 제한, 목록 순서, 삭제 방식 등은 [REQUIREMENTS.md](REQUIREMENTS.md)에 확정했다.
 
-Repository / 협업환경 구성의 완료 조건은 첫 기능을 Issue → Branch → PR → Review → Merge 흐름으로 개발할 기반이 준비되는 것이다. 아래의 실제 결과와 최종 정리 종료 조건 재확인으로 이를 충족했다. 2026-10-05 최종 정리 시작 상태와 종료 절차는 당시 이력이며 현재 진행 작업은 MVP 요구사항 정의다.
+Repository / 협업환경 구성의 완료 조건은 첫 기능을 Issue → Branch → PR → Review → Merge 흐름으로 개발할 기반이 준비되는 것이다. 아래의 실제 결과와 최종 정리 종료 조건 재확인으로 이를 충족했다. 2026-10-05 최종 정리 시작 상태와 종료 절차는 당시 이력이며 현재 진행 작업은 합의한 초기 설계의 문서 반영이다.
 
 ## 재개 시 최종 정리 검증 결과 (2026-10-05)
 
@@ -127,9 +129,9 @@ Repository / 협업환경 구성의 완료 조건은 첫 기능을 Issue → Bra
 - Docker Compose v5.1.2
 - SSH OpenSSH_10.3p1 / LibreSSL 3.3.6. GitHub는 HTTPS이므로 SSH 인증 설정은 불필요
 
-## 완료한 Project Kickoff와 현재 요구사항 작업
+## 완료한 Project Kickoff / 요구사항과 초기 설계
 
-2026-10-05 사용자가 첫 MVP의 회원·권한 제외 정책까지 명시하여 Kickoff 범위를 합의한 뒤 세부 요구사항 초안을 그대로 채택했다. 요구사항 합의는 완료했고, 문서 PR 반영은 진행 중이며 초기 설계는 아직 시작하지 않았다.
+2026-10-05 사용자가 첫 MVP의 회원·권한 제외 정책까지 명시하여 Kickoff 범위를 합의한 뒤 세부 요구사항 초안을 그대로 채택했다. 사용자 Review 후 PR #9를 Merge하고 Issue #8을 종료했다. Git / GitHub로 실제 반영을 확인하고 초기 설계를 시작했다.
 
 - 확정: 아주 간단한 CRUD 게시판. 폴더 이름이나 이전 대화의 추정이 아니라 사용자의 이번 선택을 근거로 한다.
 - 확정: 기능 복잡도를 낮추고 개발 / 협업 / 검증 / 배포 / 운영 / 기존 서비스 변경 전체 경험에 집중한다. Frontend와 전체 서비스 통합도 기존 Lifecycle에 포함한다.
@@ -137,6 +139,14 @@ Repository / 협업환경 구성의 완료 조건은 첫 기능을 Issue → Bra
 - 확정: 핵심 흐름은 작성 → 목록·상세 확인 → 수정 → 삭제이며, CRUD 외 댓글 / 좋아요 / 첨부파일 / 검색은 첫 MVP 범위에 넣지 않는다.
 - [REQUIREMENTS.md](REQUIREMENTS.md)에 제목·본문 검증, 표시 정보, 목록 순서와 페이지 나누기 제외, 삭제·실패 동작, 데이터 보존 및 검증 시나리오를 확정했다.
 - 사용자 방향 재확인: 단순 CRUD 범위를 유지하면서 전체 Lifecycle을 경험한다. 기존 REQUIREMENTS와 DEVELOPMENT_PROCESS가 실제 RDBMS / JPA / Migration / Test / CI / HTTP 및 DB 검증 / Container / 배포 / Health·Logging·운영 / Frontend 통합 / 기존 데이터 보존과 변경·재배포를 이미 다루므로 별도 기능 범위를 추가하거나 개발 과정 문서를 변경하지 않는다.
-- JDK / Spring 버전, 빌드 도구, DB, Frontend 기술, 배포 대상은 아직 결정하지 않았다. 설치된 JDK와 프로젝트 기술 선택은 구분한다.
-- 문서 작업: [Issue #8](https://github.com/yeochang-yoon/simple-board/issues/8), 작업 브랜치 `docs/8-kickoff-requirements`. README / PROJECT_STATE 변경과 REQUIREMENTS 신규 파일을 묶어 PR에 반영한다. 사용자 Review와 main Merge 완료 후 Issue를 종료하고 초기 설계를 시작한다.
-- 현재 문서에 적힌 요구사항 합의 완료와 원격 main 반영 완료는 구분한다. PR의 최신 상태는 실제 Git / GitHub에서 확인한다. 사용자 Review / Merge 이전에 통합 완료로 표현하지 않는다.
+- Backend 기술 구성은 아래 사용자 결정으로 확정했다. Frontend 기술과 배포 대상은 해당 Lifecycle 단계에서 정한다.
+- 문서 작업 완료: [PR #9](https://github.com/yeochang-yoon/simple-board/pull/9) merged, [Issue #8](https://github.com/yeochang-yoon/simple-board/issues/8) closed / completed, 완료 조건 네 항목 체크 확인. Commit `22282b4`가 main에 포함되었고 Merge Commit은 `6755fe7a9c6ce74b7e89206e1d85299ebf99964c`다.
+- Merge 후 main을 fast-forward 동기화하고 삭제된 원격 작업 브랜치 추적 참조를 prune했다. Commit 포함을 확인한 후 로컬 `docs/8-kickoff-requirements`를 안전 삭제했다. 초기 설계 문서 편집 직전 main / origin/main이 위 Merge Commit으로 일치했고 미커밋 변경은 없었다.
+- 2026-10-05 사용자 검토로 [ARCHITECTURE.md](ARCHITECTURE.md)의 Post Entity와 다섯 정보 / 서버에서 관리할 식별자와 시각 / Controller·Service·Repository·Migration 책임 분리 구조를 합의했다. 아래 전체 설계 수용으로 구체적인 DB 타입과 생성 전략도 확정했다.
+- 2026-10-05 사용자 검토로 HTTP API 계약의 경로·Method·상태 코드·JSON 요청 / 응답·오류 형식도 합의했다. 실제 HTTP 호출 검증은 Backend 구현 후 수행한다.
+- 2026-10-05 사용자가 기술 구성 표 전체를 수용했다. Java 21 / Spring Boot 4.1.1 + MVC + Spring Data JPA / Gradle Groovy DSL + Wrapper / PostgreSQL 18 / Flyway / Spring Boot Test·JUnit + Testcontainers를 확정했다. 입력 검증은 기존 제안대로 Bean Validation을 포함한다. Wrapper / DB 이미지의 정확한 버전 등은 기반 구축 시 파일에 고정하고 실제 실행으로 확인한다.
+- 2026-10-05 사용자 선택으로 DB 제품을 PostgreSQL로 확정했다. 이후 여러 Java / Spring Backend 프로젝트에서도 기본 RDBMS로 계속 사용하며 깊게 익히기 위한 결정이다. JPA / Flyway Migration / PostgreSQL Testcontainers 기반 테스트 / Transaction / Index / 실제 DB 검증 / Container / 배포·운영 방향을 유지하며, 고급 기능을 위해 게시판 범위를 늘리지 않는다.
+- 2026-10-05 사용자가 저장 구조 / 시간 처리 / 목록 정렬과 Index / Transaction 및 실패 처리 / Migration과 테스트·검증 초안 전체를 수용했다. posts의 Identity PK / varchar 입력 컬럼 / Instant·timestamptz(6) / 애플리케이션 Clock / created_at DESC·id DESC / PK Index부터 시작 / Service Transaction·READ COMMITTED / Flyway·JPA validation / PostgreSQL 테스트 및 실제 HTTP·DB 검증을 구현 기준으로 확정했다.
+- 별도 Version / 명시적 Lock 없이 시작해 동시 수정 시 마지막 UPDATE가 앞선 값을 덮어쓸 수 있다는 한계를 사용자가 현재 MVP의 의도적인 범위로 수용했다. 보호가 필요해지면 별도 요구사항 변경으로 처리한다.
+- 현재 JDK / javac 21.0.11 실행 결과와 공식 기술 문서의 지원 조건을 확인했다. 실제 애플리케이션 Build / DB 연결 / Migration / Testcontainers는 아직 실행하지 않았다. 설계 수용을 실제 실행 검증으로 취급하지 않는다.
+- 문서 반영 작업: Issue #10, `docs/10-initial-architecture`. ARCHITECTURE 신규 파일과 README / REQUIREMENTS / PROJECT_STATE 변경을 함께 Commit / Push / PR로 반영한다. 사용자 Review / Merge 후 Issue 종료와 main 동기화 / 브랜치 정리를 확인한다. 진행 상태는 실제 Git / GitHub에서 조회하며 Merge 결과 기록을 위한 별도 PR을 반복하지 않는다.

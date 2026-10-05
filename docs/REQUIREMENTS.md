@@ -62,5 +62,6 @@
 
 ## 5. 다음 작업
 
-1. Kickoff와 확정한 요구사항 문서를 하나의 문서 작업으로 Issue → Branch → Commit / Push → PR / Review → Merge 흐름에 반영한다. 이미 완료한 Repository 최종 정리 Issue #6는 다시 열지 않는다.
-2. 문서 반영 후 초기 설계에서 Domain / 저장 구조 / API 계약 / 기술 선택을 정한다. 현재 단계에서 애플리케이션 구현을 시작하지 않는다.
+Kickoff와 요구사항 문서는 [PR #9](https://github.com/yeochang-yoon/simple-board/pull/9)로 main에 반영했고 [Issue #8](https://github.com/yeochang-yoon/simple-board/issues/8)은 완료 종료했다.
+
+Domain / 저장 구조 / API 계약 / 기술 선택 / Transaction / 검증 계획은 [초기 설계](ARCHITECTURE.md)에서 사용자 합의를 완료했다. 현재는 Issue #10의 설계 문서 PR 반영 단계이며, Merge 후 Backend 개발 기반 구축으로 진행한다.
