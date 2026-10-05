@@ -1,25 +1,27 @@
 # Project State
 
-최종 갱신: 2026-10-05 (Asia/Seoul)
+최종 갱신: 2026-10-06 (Asia/Seoul)
 
 ## 현재 Lifecycle 위치
 
-- Phase 2. 요구사항과 설계
+- Phase 2. 요구사항과 설계: 완료
+- Phase 3. Backend 개발: 미착수. 첫 단계는 Backend 개발 기반 구축
 - 개발환경 확인: 완료
 - Repository / 협업환경 구성: 최종 정리까지 완료, 실제 Workflow와 Template 적용 검증 완료
 - Project Kickoff: 범위 합의 완료
 - MVP 요구사항: 세부 규칙과 검증 시나리오 합의 완료 (2026-10-05)
 - Kickoff / 요구사항 문서 반영: [PR #9](https://github.com/yeochang-yoon/simple-board/pull/9) merged, [Issue #8](https://github.com/yeochang-yoon/simple-board/issues/8) completed
 - 초기 설계: 전체 합의 완료 (2026-10-05). 저장 구조 / 시간 처리 / 정렬·Index / Transaction·실패 처리 / Migration·검증까지 수용
-- 현재 작업: [Issue #10](https://github.com/yeochang-yoon/simple-board/issues/10)의 초기 설계 문서 PR 반영 및 사용자 Review / Merge
-- 다음 Lifecycle 작업: 설계 문서 Merge와 Git 정리 후 Phase 3 Backend 개발 기반 구축
+- 초기 설계 문서 반영: [PR #11](https://github.com/yeochang-yoon/simple-board/pull/11) merged, [Issue #10](https://github.com/yeochang-yoon/simple-board/issues/10) closed / completed, 완료 조건 네 항목 체크
+- 이번 종료 정리 범위: [Issue #12](https://github.com/yeochang-yoon/simple-board/issues/12)의 상태 문서 정리만 수행. Phase 3 개발 작업은 시작하지 않음
+- 다음 재개 위치: Phase 3 Backend 개발 기반 구축. 프로젝트 생성 → PostgreSQL 실행 → 첫 Flyway Migration → JPA 연결·검증 → Testcontainers 기반 테스트
 - 서비스 주제: 아주 간단한 CRUD 게시판 (2026-10-05 사용자 명시 선택)
 - 프로젝트 목적: 간단한 기능으로 웹서비스 개발 전체 Lifecycle을 경험한 뒤, 사용자가 원하는 후속 프로젝트에 적용한다.
 - 주요 사용자: 게시판에 접근하는 누구나. 회원가입 / 로그인 없이 모든 게시글의 작성·목록 및 상세 조회·수정·삭제가 가능하다.
 - 첫 MVP에서 회원가입, 로그인, 인증/인가, 작성자 구분과 작성자별 수정·삭제 권한을 제외한다.
 - 애플리케이션 개발은 아직 시작하지 않았다. 입력 제한, 목록 순서, 삭제 방식 등은 [REQUIREMENTS.md](REQUIREMENTS.md)에 확정했다.
 
-Repository / 협업환경 구성의 완료 조건은 첫 기능을 Issue → Branch → PR → Review → Merge 흐름으로 개발할 기반이 준비되는 것이다. 아래의 실제 결과와 최종 정리 종료 조건 재확인으로 이를 충족했다. 2026-10-05 최종 정리 시작 상태와 종료 절차는 당시 이력이며 현재 진행 작업은 합의한 초기 설계의 문서 반영이다.
+Repository / 협업환경 구성의 완료 조건은 첫 기능을 Issue → Branch → PR → Review → Merge 흐름으로 개발할 기반이 준비되는 것이다. 아래의 실제 결과와 최종 정리 종료 조건 재확인으로 이를 충족했다. 아래 Repository 준비 단계의 최종 정리 절차는 완료 이력이며, 현재는 Phase 2를 완료하고 Phase 3 재개를 앞둔 상태다.
 
 ## 재개 시 최종 정리 검증 결과 (2026-10-05)
 
@@ -149,4 +151,14 @@ Repository / 협업환경 구성의 완료 조건은 첫 기능을 Issue → Bra
 - 2026-10-05 사용자가 저장 구조 / 시간 처리 / 목록 정렬과 Index / Transaction 및 실패 처리 / Migration과 테스트·검증 초안 전체를 수용했다. posts의 Identity PK / varchar 입력 컬럼 / Instant·timestamptz(6) / 애플리케이션 Clock / created_at DESC·id DESC / PK Index부터 시작 / Service Transaction·READ COMMITTED / Flyway·JPA validation / PostgreSQL 테스트 및 실제 HTTP·DB 검증을 구현 기준으로 확정했다.
 - 별도 Version / 명시적 Lock 없이 시작해 동시 수정 시 마지막 UPDATE가 앞선 값을 덮어쓸 수 있다는 한계를 사용자가 현재 MVP의 의도적인 범위로 수용했다. 보호가 필요해지면 별도 요구사항 변경으로 처리한다.
 - 현재 JDK / javac 21.0.11 실행 결과와 공식 기술 문서의 지원 조건을 확인했다. 실제 애플리케이션 Build / DB 연결 / Migration / Testcontainers는 아직 실행하지 않았다. 설계 수용을 실제 실행 검증으로 취급하지 않는다.
-- 문서 반영 작업: Issue #10, `docs/10-initial-architecture`. ARCHITECTURE 신규 파일과 README / REQUIREMENTS / PROJECT_STATE 변경을 함께 Commit / Push / PR로 반영한다. 사용자 Review / Merge 후 Issue 종료와 main 동기화 / 브랜치 정리를 확인한다. 진행 상태는 실제 Git / GitHub에서 조회하며 Merge 결과 기록을 위한 별도 PR을 반복하지 않는다.
+- 초기 설계 문서 반영 완료: [PR #11](https://github.com/yeochang-yoon/simple-board/pull/11) merged, Merge Commit `19996fd3fc2c4ec04cf68d7b71c9f6d2c76afedd`. [Issue #10](https://github.com/yeochang-yoon/simple-board/issues/10)은 closed / completed이며, 종료 정리에서 마지막 Merge 조건까지 체크하여 네 항목 모두 완료 표시를 확인했다.
+- PR #11 이후 main을 fast-forward 동기화하고 삭제된 원격 `docs/10-initial-architecture`의 추적 참조를 prune했다. 작업 Commit `8b6303a`가 main에 포함된 것을 확인한 후 로컬 작업 브랜치를 안전 삭제했다.
+
+## 종료 점검과 다음 세션 재개 (2026-10-06)
+
+- Kickoff / MVP 요구사항 / HTTP API 계약 / Backend 기술 선택 / PostgreSQL 선택 이유 / 저장 구조 / 시간 처리 / 정렬·Index / Transaction / Migration / Testcontainers·검증 계획이 관련 문서에 반영됐다. 요구사항 정의와 첫 기능을 시작할 최소 설계는 완료됐다.
+- 종료 정리 Issue #12를 시작하기 전 local main / origin/main / GitHub main이 PR #11의 Merge Commit `19996fd`로 일치했고, ahead / behind는 `0 0`, 미커밋 / 미추적 파일과 남은 작업 브랜치, 열린 Issue / PR은 없었다. 이는 정리 시작 전의 확인값이며 최신 HEAD나 열린 작업 상태로 고정하지 않는다.
+- 사용자는 종료 상태 정리만 별도 Issue / Branch / Commit / Push / PR로 진행하도록 승인했다. Issue #12와 연결된 종료 정리 PR의 최종 상태는 다음 재개 시 실제 GitHub에서 확인한다. PR Merge는 사용자가 직접 검토하고 진행한다.
+- 다음 세션은 AGENTS / 전체 DEVELOPMENT_PROCESS / 이 문서 / REQUIREMENTS / ARCHITECTURE / README와 실제 Git / GitHub 상태를 읽어 복구한다. 종료 정리 PR이 미Merge라면 해당 정리를 먼저 마무리하고, Merge됐다면 main 동기화와 안전한 브랜치 정리 후 Phase 3 Backend 개발 기반 구축을 시작한다. Merge 결과를 기록하기 위한 추가 정리 PR을 반복하지 않는다.
+- Phase 3 첫 작업은 기반 구축의 범위와 Issue / 작업 브랜치를 준비하고 Java 21 / Spring Boot 4.1.1 / Gradle Groovy DSL·Wrapper 프로젝트를 생성하는 것이다. 이후 PostgreSQL 실행 → 첫 Flyway Migration → JPA 연결·validation → Testcontainers 기반 테스트와 실제 DB 확인으로 이어간다. 환경별 설정과 Secret 분리, Build / Test / 실행 안내는 DEVELOPMENT_PROCESS의 기반 구축 범위 안에서 함께 구성한다.
+- 현재 애플리케이션 코드 / Build 설정 / Compose / Migration SQL / 테스트 코드는 없다. 프로젝트 생성, PostgreSQL 실행, Migration 적용, JPA 연결, Testcontainers 테스트 등 Phase 3 작업은 이번 종료 정리에서 수행하지 않았다.
