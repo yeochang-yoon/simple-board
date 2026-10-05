@@ -1,8 +1,8 @@
 # Initial Architecture
 
-최종 갱신: 2026-10-05 (Asia/Seoul)
+최종 갱신: 2026-10-06 (Asia/Seoul)
 
-상태: 초기 설계 합의 완료. 2026-10-05 사용자 검토로 Domain / 데이터 / 기본 책임 분리 / HTTP API 계약 / Backend 기술 구성 / 저장 구조 / Transaction / 검증 계획 전체를 수용했다. 현재는 Issue #10의 문서 PR 반영 단계이며, 애플리케이션 구현이나 DB 실행 검증은 아직 수행하지 않았다.
+상태: 초기 설계 완료. 2026-10-05 사용자 검토로 Domain / 데이터 / 기본 책임 분리 / HTTP API 계약 / Backend 기술 구성 / 저장 구조 / Transaction / 검증 계획 전체를 수용했고 PR #11로 main에 반영했다. Phase 2는 완료됐으며 Phase 3 Backend 개발 기반 구축은 미착수다. 애플리케이션 구현이나 DB 실행 검증은 아직 수행하지 않았다.
 
 ## 설계 기준
 
@@ -53,11 +53,11 @@
 | 삭제 | DELETE /api/posts/{id} | 없음 | 204 No Content, 응답 Body 없음 |
 
 - 작성·수정 요청은 `Content-Type: application/json`을 사용한다. JSON 응답도 같은 형식이며 204에는 JSON Body를 보내지 않는다.
-- `{id}`는 양의 정수 형태의 게시글 식별자다. 구체적인 DB 타입과 생성 전략은 저장 구조 설계에서 정한다.
+- `{id}`는 양의 정수 형태의 게시글 식별자다. 구체적인 DB 타입과 생성 전략은 5절의 저장 구조에 확정했다.
 - 작성·수정의 입력은 제목과 본문이다. id / createdAt / updatedAt은 서버가 관리하며 사용자 입력으로 지정하거나 덮어쓰지 않는다.
 - 수정은 제목과 본문을 함께 바꾸는 PUT을 사용한다. 일부 필드만 보내는 수정은 첫 MVP에 포함하지 않는다. 없는 글의 PUT으로 새 글을 생성하지 않는다.
 - 목록은 확정한 최신 작성 순이며 페이지 나누기나 검색 조건은 없다. GET 요청으로 게시글 상태를 변경하지 않는다.
-- 시간은 UTC 시각을 나타내는 문자열로 응답한다. 예: `2026-10-05T13:00:00Z`. DB 시간 타입과 소수 초 정밀도는 저장 구조 설계에서 정한다.
+- 시간은 UTC 시각을 나타내는 문자열로 응답한다. 예: `2026-10-05T13:00:00Z`. DB 시간 타입과 소수 초 정밀도는 5절의 저장 구조에 확정했다.
 
 Method와 상태 코드의 의미는 [RFC 9110의 HTTP Method](https://www.rfc-editor.org/rfc/rfc9110.html#section-9.3) 및 [상태 코드](https://www.rfc-editor.org/rfc/rfc9110.html#section-15)를 참고했다. 경로, DTO 구성과 각 작업에 사용할 구체적인 응답은 이 프로젝트에서 합의한 계약이다.
 
@@ -216,8 +216,8 @@ Schema 생성·변경은 Flyway가 담당하고 JPA는 매핑을 통해 데이�
 
 초기 설계의 완료 조건인 "첫 기능 개발에 필요한 최소 설계"는 사용자 합의로 준비됐다. Domain / API / 저장 구조 / 기술 선택 / Transaction / 검증 기준이 정해졌고, 첫 기능에서 핵심 구조를 처음부터 다시 결정할 필요가 없다. 구현 과정에서 발견되는 문제는 실제 근거에 따라 설계나 요구사항을 변경한다.
 
-1. [Issue #10](https://github.com/yeochang-yoon/simple-board/issues/10), `docs/10-initial-architecture` 브랜치에서 합의한 문서를 PR로 반영하고 사용자 Diff Review / Merge를 진행한다.
-2. Merge 후 실제 Git / GitHub 상태와 Issue 종료를 확인하고 main 동기화 / 브랜치 정리를 수행한다.
-3. Phase 3의 Backend 개발 기반을 구축한다. 프로젝트 생성 → 로컬 PostgreSQL → Flyway 초기 Migration → JPA validation → PostgreSQL 기반 테스트와 실제 DB 확인 순으로 진행한다. 첫 Migration과 실행 검증은 사용자가 직접 경험하도록 묶어서 안내한다.
+1. 초기 설계 문서는 [PR #11](https://github.com/yeochang-yoon/simple-board/pull/11)로 main에 반영됐다. [Issue #10](https://github.com/yeochang-yoon/simple-board/issues/10)은 closed / completed이며 완료 조건 네 항목 모두 체크됐다.
+2. PR #11 이후 main 동기화 / 삭제된 원격 브랜치 추적 참조 정리 / Merge된 로컬 작업 브랜치 안전 삭제를 완료했다. 이번 종료 정리는 상태 문서와 완료 표시만 정리한다.
+3. 다음 세션은 Phase 3 Backend 개발 기반 구축에서 시작한다. 프로젝트 생성 → PostgreSQL 실행 → 첫 Flyway Migration → JPA 연결·validation → Testcontainers 기반 테스트와 실제 DB 확인 순으로 진행한다. 현재는 미착수이며 첫 Migration과 실행 검증은 사용자가 직접 경험하도록 묶어서 안내한다.
 
 Frontend 기술과 배포 대상은 DEVELOPMENT_PROCESS의 해당 단계에서 결정한다. 설계 합의 완료와 문서 main 반영 완료, 애플리케이션 구현·실행 검증 완료를 각각 구분한다.

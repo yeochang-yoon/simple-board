@@ -1,6 +1,6 @@
 # MVP Requirements
 
-최종 갱신: 2026-10-05 (Asia/Seoul)
+최종 갱신: 2026-10-06 (Asia/Seoul)
 
 상태: Kickoff 및 MVP 세부 요구사항 합의 완료. 2026-10-05 사용자가 세부 요구사항 초안을 그대로 채택했다. 이 문서는 이후 설계·구현·검증의 기준이다.
 
@@ -16,7 +16,7 @@
 - 경험할 개발 주제: 작은 기능 단위의 Issue / Branch / PR / Review, 실제 RDBMS와 Migration, Test / CI, HTTP 및 DB 검증, Container, Backend 배포와 운영, Frontend 개발과 통합, 전체 서비스 배포, 기존 데이터가 있는 서비스의 변경과 재배포.
 - Frontend와 배포 후 변경은 전체 Lifecycle에 포함한다. 구체적인 변경 기능은 필요가 생기는 단계에서 정한다.
 
-이 범위는 2026-10-05 사용자의 서비스 선택과 회원·권한 제외 결정을 근거로 한다. 기술 버전, DB 제품, API 경로는 초기 설계에서 검토하고, Frontend 기술과 배포 대상은 DEVELOPMENT_PROCESS의 해당 Lifecycle 단계에서 정한다.
+이 범위는 2026-10-05 사용자의 서비스 선택과 회원·권한 제외 결정을 근거로 한다. 기술 버전, DB 제품, API 경로는 초기 설계에서 확정했다. Frontend 기술과 배포 대상은 DEVELOPMENT_PROCESS의 해당 Lifecycle 단계에서 정한다.
 
 ## 2. 확정한 기능과 접근 정책
 
@@ -64,4 +64,6 @@
 
 Kickoff와 요구사항 문서는 [PR #9](https://github.com/yeochang-yoon/simple-board/pull/9)로 main에 반영했고 [Issue #8](https://github.com/yeochang-yoon/simple-board/issues/8)은 완료 종료했다.
 
-Domain / 저장 구조 / API 계약 / 기술 선택 / Transaction / 검증 계획은 [초기 설계](ARCHITECTURE.md)에서 사용자 합의를 완료했다. 현재는 Issue #10의 설계 문서 PR 반영 단계이며, Merge 후 Backend 개발 기반 구축으로 진행한다.
+Domain / 저장 구조 / API 계약 / 기술 선택 / Transaction / 검증 계획은 [초기 설계](ARCHITECTURE.md)에서 사용자 합의를 완료했고 [PR #11](https://github.com/yeochang-yoon/simple-board/pull/11)로 main에 반영했다. Issue #10은 closed / completed다. Phase 2 요구사항과 설계는 완료됐으며 Phase 3는 미착수다.
+
+다음 세션의 재개 위치는 Backend 개발 기반 구축이다. 프로젝트 생성 → PostgreSQL 실행 → 첫 Flyway Migration → JPA 연결·검증 → Testcontainers 기반 테스트 순으로 진행한다. 이번 종료 정리는 상태 문서만 갱신하며 실제 개발·실행 작업은 수행하지 않는다.
