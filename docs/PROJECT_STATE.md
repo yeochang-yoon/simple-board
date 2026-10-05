@@ -8,13 +8,13 @@
 - 개발환경 확인: 완료 (Repository 구성에 필요한 기본 도구 사용 가능, Docker 컨테이너 실행 검증 성공)
 - 현재 작업: Repository / 협업환경 구성 (진행 중)
 - 이 단계의 완료 조건: 첫 기능을 Issue → Branch → PR → Review → Merge 흐름으로 개발할 수 있는 기반 준비
-- 필요한 Repository 운영 판단은 완료했다. Issue #1의 문서 Commit과 작업 브랜치 Push를 완료했으며 현재 세부 작업은 첫 PR 생성 준비다. PR / Review / Merge, Template 추가 및 화면 검증, 브랜치 정리 실습이 남아 있으므로 단계 전체를 완료 처리하지 않는다.
+- 필요한 Repository 운영 판단은 완료했다. Issue #1의 문서 Commit / Push와 첫 PR #2 생성을 완료했으며 현재 세부 작업은 PR Review와 사용자 확인이다. Merge, Template 추가 및 화면 검증, 브랜치 정리 실습이 남아 있으므로 단계 전체를 완료 처리하지 않는다.
 - Project Kickoff와 애플리케이션 개발은 아직 시작하지 않았다.
 
 ## 최근 상태 복구 확인 (2026-10-05)
 
 - 이전 대화 기억 대신 `AGENTS.md`, 전체 `docs/DEVELOPMENT_PROCESS.md`, 이 문서, README 및 실제 로컬 / GitHub 상태를 읽어 현재 위치를 복구했다.
-- 최초 상태 복구 시 모든 브랜치는 `345fd46`을 가리켰고 원격에는 `main`만 있었다. 이후 사용자가 문서 Commit `d95c271`을 생성하고 `docs/repository-setup`을 Push했다. 로컬 / 원격 작업 브랜치가 해당 Commit으로 일치하고 로컬 작업 브랜치가 `origin/docs/repository-setup`을 추적함을 확인했다. `main`과 `origin/main`은 여전히 `345fd46`이다. PR은 아직 없다.
+- 최초 상태 복구 시 모든 브랜치는 `345fd46`을 가리켰고 원격에는 `main`만 있었다. 이후 사용자가 문서 Commit `d95c271`을 생성하고 `docs/repository-setup`을 Push했다. 로컬 / 원격 작업 브랜치가 해당 Commit으로 일치하고 로컬 작업 브랜치가 `origin/docs/repository-setup`을 추적함을 확인했다. `main`과 `origin/main`은 여전히 `345fd46`이다. 이후 PR #2를 생성했으며 최신 작업 브랜치 HEAD는 실제 Git 조회로 확인한다.
 - 최초 복구 시 미커밋 변경은 `AGENTS.md`와 `docs/PROJECT_STATE.md` 수정, `README.md` 미추적이었다. 이후 사용자가 세 파일을 Staging했으며, 아래에 실행 결과를 기록했다. 애플리케이션 / 빌드 설정 / Template 파일은 없다.
 - 최초 상태 복구 시 Issue #1은 열린 상태이며 Label이 없고 완료 조건 체크박스도 모두 미완료였다. 이후 사용자가 웹 UI에서 `documentation`을 적용하고 새로고침 후 유지됨을 확인했다. GitHub API 읽기 조회에서도 Issue #1의 `open` 상태와 `documentation` Label을 확인했다.
 - GitHub API 읽기 조회로 Public / 기본 브랜치 `main`, Merge commit만 허용, Merge 후 브랜치 자동 삭제 꺼짐, 활성 `main-protection`의 PR 필수 / 승인 0명 / Force Push 및 삭제 차단 / 우회 대상 없음을 재확인했다.
@@ -41,7 +41,7 @@
 - 사용자가 `git push -u origin main`에 성공했다. 로컬 `main`이 `origin/main`을 추적하며 두 참조가 첫 Commit `345fd46`을 가리키는 것을 실제 `git branch -vv`로 확인했다.
 - GitHub 조회 결과는 사용자 출력으로 확인했다: `visibility`는 `PUBLIC`, `defaultBranchRef.name`은 `main`이다.
 - 사용자가 문서 정리 작업을 Issue #1로 등록했다: https://github.com/yeochang-yoon/simple-board/issues/1
-- 2026-10-05 Push 후 GitHub 읽기 조회: 원격 브랜치는 `main`과 `docs/repository-setup`이며, 열린 / 닫힌 PR은 모두 없다. Issue #1은 `open`이고 `documentation` Label 적용을 확인했다.
+- 2026-10-05 PR 생성 전 Push 후 조회에서는 원격 브랜치 두 개와 PR 없음을 확인했다. 이후 사용자가 GitHub 웹 UI에서 PR #2를 생성하고 URL을 공유했다: https://github.com/yeochang-yoon/simple-board/pull/2 . Issue #1은 여전히 `open`이고 `documentation` Label이 적용돼 있다.
 - 이번 조사 결과를 유지하기 위해 이 상태 문서를 생성했다.
 
 ## 확인된 개발환경
@@ -91,16 +91,17 @@
 - Label 적용 실습 완료: 사용자가 Issue #1의 GitHub 웹 UI에서 `documentation`을 직접 적용하고 새로고침 후에도 유지됨을 확인했다. Codex의 GitHub API 읽기 조회에서도 해당 Label을 확인했다.
 - 첫 PR의 변경 파일은 `README.md`, `docs/PROJECT_STATE.md`, `AGENTS.md` 세 파일이다. README와 상태 문서 변경에 더해, 사용자가 확정한 GitHub 웹 UI / CLI 실습 선택 원칙을 `AGENTS.md`에 반영한 변경도 포함한다. 문서 Commit / Push는 완료했다.
 - Staging 실행 및 결과 확인 완료: 사용자가 `git add AGENTS.md README.md docs/PROJECT_STATE.md`, `git status --short`, `git diff --cached`를 실행하고 결과를 공유했다. 실제 Index도 세 파일의 Staging 상태와 일치하며 `git diff --cached --check`를 통과했다. 사용자 공유 출력에는 상태 문서 Diff의 시작까지만 포함됐고 Codex는 전체 Staging Diff를 확인했다. 이후 사용자는 추가 진행 기록을 포함한 상태 문서를 다시 Staging / 확인하고 Commit했다.
-- 첫 PR의 base는 `main`, head는 `docs/repository-setup`으로 안내한다. 본문 초안을 임시 파일로 준비했으며 `Closes #1`로 Issue를 연결할 예정이다. 임시 파일은 Repository에 포함되지 않으므로 새 세션에서는 실제 변경과 검증 결과를 기준으로 본문을 확인 / 재작성한다.
-- 현재 문서 변경의 Commit과 작업 브랜치 Push를 완료했다. PR 생성은 아직 미실행이다. 사용자가 GitHub 웹 UI에서 base / compare / 제목 / 본문 / Diff를 확인하고 PR을 생성한 뒤 Review / Merge로 이어간다.
+- 첫 PR 생성 완료: #2 `docs: README 추가 및 Repository 준비 상태 정리`, base `main`, head `docs/repository-setup`, 본문 `Closes #1`. GitHub API로 `open`, Draft 아님, 충돌 없음 (`mergeable: true`, `mergeable_state: clean`)을 확인했으며 이 대화에 PR을 연결했다. 아직 Merge하지 않았다.
+- Codex의 최초 PR 검토: 제목 / 본문 / 세 파일 Diff와 사용자 확정 정책을 확인했다. README 링크 대상 세 파일은 PR의 HEAD에서 GitHub 읽기 조회에 성공했다. `git diff main...HEAD --check`를 통과했다. 조회 당시 Check Run / Commit Status는 각각 0개이며, 애플리케이션 / Build / Test / CI가 아직 없어 CI 통과로 취급하지 않는다. 생성 준비로 남아 있던 상태 문서 기록을 PR 생성 / Review 단계로 갱신했다. GitHub에 Review 댓글이나 Approve를 게시한 것은 아니다.
+- 다음 사용자 확인: PR의 Files changed에서 세 파일을 읽고, GitHub에서 렌더링된 작업 브랜치 README의 세 문서 링크를 직접 클릭한다. 확인 결과와 필요한 수정사항을 공유한 뒤 Merge 절차로 이어간다.
 
 ## Issue #1 진행 상태와 미실행 작업
 
 - 제목: `README 추가 및 Repository 준비 상태 정리`
 - 범위: README에 프로젝트 목적 / 현재 단계 / 주요 문서 링크를 추가하고, 상태 문서를 실제 개발환경 및 Repository 상태에 맞춘다. 작업 브랜치의 변경을 PR로 Review하고 `main`에 반영한다.
 - 완료 조건: README에서 목적 / 단계를 확인할 수 있고 세 문서 링크가 열리며, 상태 문서가 실제 결과와 일치하고 PR을 검토 / Merge했다. GitHub의 완료 조건 체크박스는 아직 모두 미완료다.
-- 현재 위치: Issue 등록 / Label 적용 / 작업 브랜치 생성 / Repository 운영 판단 / 문서 검토 / Commit / Push 및 결과 확인 완료. 첫 PR 생성 준비 중이며, Issue를 건너뛰거나 종료하지 않았다.
-- 미실행: PR 생성, PR Review / 필요한 수정, Merge, Issue 종료 확인, Merge 후 로컬 `main` 동기화 / 첫 수동 작업 브랜치 정리 / GitHub 자동 삭제 전환.
+- 현재 위치: Issue 등록 / Label 적용 / 작업 브랜치 생성 / Repository 운영 판단 / 문서 검토 / Commit / Push / PR #2 생성 완료. Codex가 최초 Diff와 검증 근거를 확인했고, 사용자의 웹 UI Review / 실제 링크 확인이 남아 있다. Issue를 건너뛰거나 종료하지 않았다.
+- 미실행: 사용자 PR Review / 링크 동작 확인 및 필요한 수정, Merge, Issue 종료 확인, Merge 후 로컬 `main` 동기화 / 첫 수동 작업 브랜치 정리 / GitHub 자동 삭제 전환.
 - Template 파일 추가는 Issue #1 범위에 포함하지 않는다. Issue #1 완료 후 별도 Issue / 브랜치 / PR로 PR 및 Issue Template을 추가하고 GitHub 화면에서 동작을 검증한다. 해당 별도 Issue도 아직 생성하지 않았다.
 
 ## 진행 원칙 및 미결정 사항
@@ -115,11 +116,11 @@
 - Commit 규칙 확정: 사용자가 제안한 type과 `<type>: <짧은 요약>` 형식을 convention으로 사용하기로 했다. `feat` / `fix` / `docs` / `chore` / `test` / `refactor`를 필요에 따라 사용한다. 요약은 한글을 허용하고, 이유나 주의점이 있으면 빈 줄 뒤 본문에 기록한다. 관련된 변경 단위로 Commit을 나누며 한 Issue에 여러 Commit이 있을 수 있다. scope / Issue 번호는 제목에 필수로 넣지 않고 Issue 연결은 PR 본문에서 한다. 기존 첫 Commit과 GitHub가 생성하는 Merge commit 메시지는 유지한다. 별도 자동 강제는 추가하지 않고 PR Review에서 메시지와 변경 단위를 확인한다. 참고: https://www.conventionalcommits.org/en/v1.0.0/ .
 - Merge 후 브랜치 정리 운영 방식 확정: 사용자는 첫 PR (Issue #1)을 Merge한 뒤 원격 작업 브랜치와 로컬 작업 브랜치가 각각 남는 것을 직접 확인하고 둘을 수동으로 정리하기로 했다. 이 실습을 완료한 뒤에는 반복 작업이므로 GitHub의 `Automatically delete head branches`를 켜기로 했다. 지금은 자동 삭제를 꺼둔다. 이후 전환에 대한 사용자 의사는 확정됐으며 실습 완료 전에는 설정을 변경하지 않는다.
 - 첫 PR 정리 실습 계획 (미실행): PR Merge / Issue 종료 확인 → GitHub 웹 UI와 로컬 Git에서 작업 브랜치 잔존 확인 → PR 웹 UI에서 원격 브랜치 삭제 / 결과 확인 → 로컬 `main` 전환 / 최신 원격 `main` 동기화 / Merge 포함 확인 → 로컬 작업 브랜치 안전 삭제 및 원격 추적 참조 정리 / 결과 확인 → GitHub 웹 UI에서 자동 삭제 켜기 / 설정 확인. 각 단계에서 사용자가 직접 실행하고 결과를 공유하도록 안내하며, 실제 명령과 검증은 Merge 완료 시점의 상태를 기준으로 진행한다. 자동 삭제를 켜도 로컬 브랜치 정리는 별도로 필요하다.
-- 2026-10-05 GitHub API 읽기 조회: PR은 아직 없고 `delete_branch_on_merge: false`, `license: null`이다. 첫 PR 수동 정리 / 자동 삭제 전환은 아직 실행하지 않았다.
+- 2026-10-05 PR 생성 전 GitHub API 조회에서 `delete_branch_on_merge: false`, `license: null`을 확인했다. 현재 PR #2는 열려 있으며 첫 PR 수동 정리 / 자동 삭제 전환은 아직 실행하지 않았다.
 - License 보류 확정: 현재 Repository 목적은 학습 프로젝트 공개와 개발 Lifecycle 경험이며, 다른 사람의 재사용 / 수정 / 배포를 적극적으로 허용하려는 목적은 아직 없다. Repository 준비를 위해 형식적으로 License를 추가하지 않는다. 나중에 실제 재사용 허용 필요가 생기면 MIT 등의 License를 다시 검토한다. `LICENSE` 파일은 생성하지 않았다.
 - Secret은 `docs/DEVELOPMENT_PROCESS.md`의 공통 원칙에 따라 Password / API Key / Token 등을 Git에 저장하지 않는다. 현재 Secret을 사용하는 설정은 없으며 구체적인 주입 / 제외 방식은 필요한 설정이 생길 때 검토한다.
 - 서비스 주제와 MVP 범위는 아직 결정하지 않았다. 폴더 이름만으로 게시판 서비스를 확정하지 않는다.
 - JDK / Spring 버전, 빌드 도구, DB, Frontend 기술, 배포 대상은 아직 결정하지 않았다.
-- 상태 복구 이후 Label 실습과 실제 결과 확인, 브랜치 이름 및 Commit convention, 첫 PR 수동 정리 후 자동 삭제 전환, License 보류를 확정했다. 문서 Commit / Push도 완료했으며 현재는 Issue #1의 첫 PR 생성 준비 중이다.
+- 상태 복구 이후 Label 실습과 실제 결과 확인, 브랜치 이름 및 Commit convention, 첫 PR 수동 정리 후 자동 삭제 전환, License 보류를 확정했다. 문서 Commit / Push와 PR #2 생성도 완료했으며 현재는 사용자 PR Review / 링크 확인 단계다.
 - 상태 문서는 작업 브랜치에 포함해 GitHub로 Push됐으며 `main`에는 아직 Merge되지 않았다. 최초 Commit 시점의 `main`만 읽으면 이전 상태 문서를 보게 되므로 진행 상태 복구 시 실제 작업 브랜치와 Git 상태를 함께 확인한다.
-- 사용자가 재개를 요청하면 기존 Issue #1의 첫 PR 생성 준비부터 이어간다. 이후 PR → Review → 필요한 수정 → Merge → Issue 종료 확인 → 첫 수동 브랜치 정리 실습 → GitHub 자동 삭제 전환으로 진행한다. PR 생성은 GitHub 웹 UI에서 사용자가 base / head / 본문과 Diff를 확인하면서 직접 경험하도록 안내한다.
+- 사용자가 재개를 요청하면 기존 PR #2의 최신 HEAD와 상태를 확인하고 사용자 Review / 링크 확인부터 이어간다. 이후 필요한 수정 → Merge → Issue 종료 확인 → 첫 수동 브랜치 정리 실습 → GitHub 자동 삭제 전환으로 진행한다. Merge는 사용자의 Review 확인 후 웹 UI에서 직접 경험하도록 안내한다.
