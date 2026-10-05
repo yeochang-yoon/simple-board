@@ -4,14 +4,29 @@
 
 ## 현재 Lifecycle 위치
 
-- Phase 1. 프로젝트 기반 준비
+- Phase 2. 요구사항과 설계
 - 개발환경 확인: 완료
-- Repository / 협업환경 구성: 완료 조건 충족, 실제 Workflow와 Template 적용 검증 완료
-- 현재 작업: Issue #6의 최종 문서 반영 및 Git / GitHub 정리 (아래 종료 조건 충족 후 종료)
-- 다음 Lifecycle 작업: Phase 1의 Project Kickoff (아직 시작하지 않음)
-- 서비스 주제 / 사용자 / MVP 범위는 미정이며 애플리케이션 개발도 시작하지 않았다.
+- Repository / 협업환경 구성: 최종 정리까지 완료, 실제 Workflow와 Template 적용 검증 완료
+- Project Kickoff: 범위 합의 완료
+- MVP 요구사항: 세부 규칙과 검증 시나리오 합의 완료 (2026-10-05)
+- 현재 작업: [Issue #8](https://github.com/yeochang-yoon/simple-board/issues/8)의 Kickoff / 요구사항 문서 PR 반영 및 사용자 Review / Merge
+- 다음 Lifecycle 작업: 문서 PR 반영 후 초기 설계
+- 서비스 주제: 아주 간단한 CRUD 게시판 (2026-10-05 사용자 명시 선택)
+- 프로젝트 목적: 간단한 기능으로 웹서비스 개발 전체 Lifecycle을 경험한 뒤, 사용자가 원하는 후속 프로젝트에 적용한다.
+- 주요 사용자: 게시판에 접근하는 누구나. 회원가입 / 로그인 없이 모든 게시글의 작성·목록 및 상세 조회·수정·삭제가 가능하다.
+- 첫 MVP에서 회원가입, 로그인, 인증/인가, 작성자 구분과 작성자별 수정·삭제 권한을 제외한다.
+- 애플리케이션 개발은 아직 시작하지 않았다. 입력 제한, 목록 순서, 삭제 방식 등은 [REQUIREMENTS.md](REQUIREMENTS.md)에 확정했다.
 
-Repository / 협업환경 구성의 완료 조건은 첫 기능을 Issue → Branch → PR → Review → Merge 흐름으로 개발할 기반이 준비되는 것이다. 아래의 실제 결과로 이를 충족했다. 다만 이번 최종 문서 정리와 아래 종료 조건 확인을 마치기 전에는 Project Kickoff를 시작하거나 세션 종료 준비가 완료됐다고 판단하지 않는다.
+Repository / 협업환경 구성의 완료 조건은 첫 기능을 Issue → Branch → PR → Review → Merge 흐름으로 개발할 기반이 준비되는 것이다. 아래의 실제 결과와 최종 정리 종료 조건 재확인으로 이를 충족했다. 2026-10-05 최종 정리 시작 상태와 종료 절차는 당시 이력이며 현재 진행 작업은 MVP 요구사항 정의다.
+
+## 재개 시 최종 정리 검증 결과 (2026-10-05)
+
+- [PR #7](https://github.com/yeochang-yoon/simple-board/pull/7): merged, AGENTS / README / PROJECT_STATE 반영. Merge Commit `a7c694f2f445c021cca6cb6b259e873a540f1f3b`.
+- [Issue #6](https://github.com/yeochang-yoon/simple-board/issues/6): closed / completed, 완료 조건 네 항목 모두 체크.
+- Kickoff 문서 수정 전 local main / origin/main / GitHub main은 위 Merge Commit으로 일치했고, ahead / behind는 `0 0`, 미커밋 / 미추적 파일은 없었다.
+- 로컬 / 원격 작업 브랜치는 main만 있었고, 삭제된 원격 작업 브랜치의 추적 참조와 열린 Issue / PR도 없었다.
+- GitHub 읽기 조회로 Public / 기본 main / Merge commit만 허용 / 원격 브랜치 자동 삭제 / License 보류와 활성 main-protection의 PR 필수 / 승인 0명 / Force Push 및 삭제 차단 / bypass 없음을 재확인했다. gh 인증도 정상으로 확인했다.
+- 최종 정리 종료 조건을 모두 충족하여 Project Kickoff를 시작했다. 이 검증을 기록하기 위한 별도 정리 PR을 반복하지 않고 Kickoff의 결정 기록과 함께 문서를 반영한다.
 
 ## 단계 완료 근거
 
@@ -54,7 +69,7 @@ Repository / 협업환경 구성의 완료 조건은 첫 기능을 Issue → Bra
 - GitHub 설정 재확인: Merge commit만 허용, `delete_branch_on_merge: true`, `license: null`.
 - Ruleset `main-protection` (ID `24418157`): active, `refs/heads/main`만 보호, 제외 / bypass 없음, PR 필수 / 승인 0명 / deletion / non_fast_forward 차단.
 
-## 최종 정리 작업과 세션 종료 조건
+## Issue #6 최종 정리 작업과 세션 종료 조건 (완료 이력)
 
 사용자는 다음 Lifecycle로 미커밋 문서 변경을 넘기지 않고 이번 단계에서 반영 / 정리하기로 했다. 이번 작업에서는 Codex가 문서 준비와 읽기 점검을 수행하고, 사용자에게 필요한 Git 명령과 GitHub 웹 UI 절차를 한 단계씩 안내한다. Commit / Push / PR / Review / Merge / 동기화 / 브랜치 정리를 대신 실행하지 않는다.
 
@@ -96,7 +111,7 @@ Repository / 협업환경 구성의 완료 조건은 첫 기능을 Issue → Bra
 - 처음 경험하는 코드 / 도구 / 절차 / 검증의 핵심은 사용자가 직접 수행한다. 이미 경험한 반복 작업은 Codex가 처리할 수 있다.
 - Codex가 반복 작업을 대신 처리하면 다음 행동을 요청하기 전에 처리 내용과 실제 결과를 짧게 보고한다. 처리 완료 보고 → 필요한 설명 → 다음 작업 안내 순서다.
 - GitHub 협업 실습은 현업의 일반적인 방식과 학습 가치를 기준으로 웹 UI / gh CLI를 선택한다. 직접 실습을 무조건 터미널로 안내하지 않는다.
-- 사용자의 이번 최종 정리 요청은 위 일반적인 반복 작업 위임보다 우선한다. 사용자가 직접 실행할 단계는 한 번에 하나씩 안내하고 결과를 확인한다.
+- Issue #6의 최종 정리는 당시 사용자의 요청에 따라 Commit / Push 등도 사용자가 직접 수행했다. 완료된 해당 작업의 절차이며, 이후 작업은 위 일반적인 반복 작업 위임 원칙을 적용한다. 현재 사용자는 관련 명령과 절차를 묶어 안내하고 중요한 판단과 검증을 함께 확인하기를 요청했다.
 
 ## 확인한 개발환경
 
@@ -112,11 +127,16 @@ Repository / 협업환경 구성의 완료 조건은 첫 기능을 Issue → Bra
 - Docker Compose v5.1.2
 - SSH OpenSSH_10.3p1 / LibreSSL 3.3.6. GitHub는 HTTPS이므로 SSH 인증 설정은 불필요
 
-## 다음 Lifecycle: Project Kickoff
+## 완료한 Project Kickoff와 현재 요구사항 작업
 
-Phase 1의 마지막 작업이며 아직 시작하지 않았다. 전체 Phase 1이 끝난 것으로 표현하거나 Phase 2 요구사항 정의 / 애플리케이션 구현으로 건너뛰지 않는다.
+2026-10-05 사용자가 첫 MVP의 회원·권한 제외 정책까지 명시하여 Kickoff 범위를 합의한 뒤 세부 요구사항 초안을 그대로 채택했다. 요구사항 합의는 완료했고, 문서 PR 반영은 진행 중이며 초기 설계는 아직 시작하지 않았다.
 
-- 먼저 정할 것: 서비스가 해결할 문제, 주요 사용자, 핵심 사용 시나리오, 기본 성격, 첫 MVP 범위, 제외 범위, 이번에 경험할 개발 주제.
-- 폴더 이름만으로 게시판 서비스를 확정하지 않는다.
-- 서비스 주제 / MVP, JDK / Spring 버전, 빌드 도구, DB, Frontend 기술, 배포 대상은 아직 결정하지 않았다. 설치된 JDK와 프로젝트 기술 선택은 구분한다.
-- 최종 정리 종료 조건이 충족되면 Codex가 Kickoff를 리드하고 사용자가 주요 판단에 참여한다.
+- 확정: 아주 간단한 CRUD 게시판. 폴더 이름이나 이전 대화의 추정이 아니라 사용자의 이번 선택을 근거로 한다.
+- 확정: 기능 복잡도를 낮추고 개발 / 협업 / 검증 / 배포 / 운영 / 기존 서비스 변경 전체 경험에 집중한다. Frontend와 전체 서비스 통합도 기존 Lifecycle에 포함한다.
+- 확정: 누구나 회원가입 / 로그인 없이 게시글을 작성·조회·수정·삭제한다. 작성자 구분과 작성자별 권한은 없다.
+- 확정: 핵심 흐름은 작성 → 목록·상세 확인 → 수정 → 삭제이며, CRUD 외 댓글 / 좋아요 / 첨부파일 / 검색은 첫 MVP 범위에 넣지 않는다.
+- [REQUIREMENTS.md](REQUIREMENTS.md)에 제목·본문 검증, 표시 정보, 목록 순서와 페이지 나누기 제외, 삭제·실패 동작, 데이터 보존 및 검증 시나리오를 확정했다.
+- 사용자 방향 재확인: 단순 CRUD 범위를 유지하면서 전체 Lifecycle을 경험한다. 기존 REQUIREMENTS와 DEVELOPMENT_PROCESS가 실제 RDBMS / JPA / Migration / Test / CI / HTTP 및 DB 검증 / Container / 배포 / Health·Logging·운영 / Frontend 통합 / 기존 데이터 보존과 변경·재배포를 이미 다루므로 별도 기능 범위를 추가하거나 개발 과정 문서를 변경하지 않는다.
+- JDK / Spring 버전, 빌드 도구, DB, Frontend 기술, 배포 대상은 아직 결정하지 않았다. 설치된 JDK와 프로젝트 기술 선택은 구분한다.
+- 문서 작업: [Issue #8](https://github.com/yeochang-yoon/simple-board/issues/8), 작업 브랜치 `docs/8-kickoff-requirements`. README / PROJECT_STATE 변경과 REQUIREMENTS 신규 파일을 묶어 PR에 반영한다. 사용자 Review와 main Merge 완료 후 Issue를 종료하고 초기 설계를 시작한다.
+- 현재 문서에 적힌 요구사항 합의 완료와 원격 main 반영 완료는 구분한다. PR의 최신 상태는 실제 Git / GitHub에서 확인한다. 사용자 Review / Merge 이전에 통합 완료로 표현하지 않는다.

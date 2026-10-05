@@ -1,18 +1,21 @@
 # simple-board
 
 웹서비스 개발부터 협업, 배포, 운영, 기존 서비스 변경까지 전체 개발 Lifecycle을 경험하기 위한 프로젝트입니다.
+아주 간단한 CRUD 게시판을 만들며 전체 개발 흐름을 경험하고, 이후 다른 프로젝트에 적용하는 것을 목표로 합니다.
 
 ## 현재 진행 상태
 
 Repository와 협업환경 구성 및 실제 Workflow 검증을 완료했습니다.
-현재는 단계 종료를 위한 문서와 Git 상태를 최종 정리하며, 다음 작업은 Project Kickoff입니다.
-서비스 주제와 MVP 범위는 이후 Project Kickoff와 요구사항 정의 과정에서 결정합니다.
+최종 문서 반영과 Git / GitHub 정리, Project Kickoff 및 MVP 요구사항 합의를 마쳤으며, 현재는 합의한 문서를 PR로 반영하는 단계입니다.
+첫 MVP는 회원가입·로그인 없이 누구나 게시글을 작성·조회·수정·삭제하는 게시판입니다.
+인증/인가, 작성자 구분 및 작성자별 수정·삭제 권한은 제외합니다. 입력 검증과 조회·삭제 등의 세부 규칙은 요구사항 문서에 확정했습니다.
 
 ## 프로젝트 문서
 
 - [진행 원칙](AGENTS.md)
 - [전체 개발 과정](docs/DEVELOPMENT_PROCESS.md)
 - [현재 프로젝트 상태와 다음 작업](docs/PROJECT_STATE.md)
+- [Kickoff 결과와 MVP 요구사항](docs/REQUIREMENTS.md)
 
 ## 실행 안내
 
