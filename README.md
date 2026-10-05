@@ -4,7 +4,8 @@
 
 ## 현재 진행 상태
 
-프로젝트 기반 준비 단계에서 Repository와 협업환경을 구성하고 있습니다.
+Repository와 협업환경 구성 및 실제 Workflow 검증을 완료했습니다.
+현재는 단계 종료를 위한 문서와 Git 상태를 최종 정리하며, 다음 작업은 Project Kickoff입니다.
 서비스 주제와 MVP 범위는 이후 Project Kickoff와 요구사항 정의 과정에서 결정합니다.
 
 ## 프로젝트 문서
