@@ -2,7 +2,7 @@
 
 최종 갱신: 2026-10-09 (Asia/Seoul)
 
-상태: 초기 설계 완료. 2026-10-05 사용자 검토로 Domain / 데이터 / 기본 책임 분리 / HTTP API 계약 / Backend 기술 구성 / 저장 구조 / Transaction / 검증 계획 전체를 수용했고 PR #11로 main에 반영했다. Phase 2는 완료됐으며 Phase 3 Backend 개발 기반 구축은 진행 중이다. 로컬 PostgreSQL 접속 / Spring 실행 / Flyway V1·Schema·이력 검증과 BaseTimeEntity / Post 상속 매핑의 JPA validation, 별도 PostgreSQL Testcontainers 기반 테스트를 확인했다. Gradle Build와 실행 가능한 JAR 생성도 확인했다. 최종 검토에서 보완한 DB 세션 UTC 설정도 Testcontainers 테스트와 로컬 Spring 연결에서 검증했다. 기반 구축의 PR 반영과 게시글 기능 개발은 남아 있다. 실제 진행 상태는 [PROJECT_STATE.md](PROJECT_STATE.md)를 따른다.
+2026-10-05 사용자 검토로 Domain / 데이터 / 기본 책임 분리 / HTTP API 계약 / Backend 기술 구성 / 저장 구조 / Transaction / 검증 계획을 수용했다. 이 문서는 합의한 설계와 구현 기준을 정의한다. 현재 Lifecycle 위치와 완료 근거, 다음 재개 위치는 [PROJECT_STATE.md](PROJECT_STATE.md)를 따른다.
 
 ## 설계 기준
 
@@ -143,7 +143,7 @@ Schema 생성·변경은 Flyway가 담당하고 JPA는 매핑을 통해 데이�
 - [Spring Boot DB 초기화](https://docs.spring.io/spring-boot/how-to/data-initialization.html): Flyway를 통한 DB Migration 구성 방법을 제공한다.
 - [Testcontainers PostgreSQL 모듈](https://java.testcontainers.org/modules/databases/postgres/): Java에서 PostgreSQL Container를 실행할 수 있다.
 
-공식 지원 조건 확인과 실제 실행 검증은 구분한다. 생성한 Backend의 Gradle Wrapper는 9.7.1이며 라이브러리 의존성도 build.gradle에 선언돼 있다. 로컬 PostgreSQL 18.6 접속 / Spring DB 연결 / Flyway V1·Schema·이력 SQL과 Post JPA 매핑을 검증했다. 로컬과 테스트의 이미지는 postgres:18.6-trixie로 맞췄으며 별도 PostgreSQL Testcontainers 기반 테스트도 통과했다. Gradle Build와 실행 가능한 JAR 생성도 확인했다. 상세 진행 상태는 [PROJECT_STATE.md](PROJECT_STATE.md)에 기록한다.
+Gradle Wrapper는 9.7.1, 로컬 Compose와 Testcontainers의 PostgreSQL 이미지는 postgres:18.6-trixie로 고정한다. 라이브러리 의존성은 build.gradle에 선언하며 Spring Boot의 의존성 관리를 따른다. 공식 지원 조건 확인과 실제 실행 검증은 구분하며, 실행·검증 결과는 [PROJECT_STATE.md](PROJECT_STATE.md)에 기록한다.
 
 ## 5. PostgreSQL 저장 구조와 JPA 매핑 — 합의 완료
 
@@ -165,7 +165,7 @@ Schema 생성·변경은 Flyway가 담당하고 JPA는 매핑을 통해 데이�
 - varchar 길이 제한 / NOT NULL / 빈 문자열 CHECK는 DB에서도 기본적인 저장 규칙을 보호한다. 공백만 있는 입력의 거절과 사용자에게 보여줄 필드 오류는 애플리케이션의 입력 검증에서 담당한다. 이 DB 제약만으로 모든 Validation을 대체하지 않는다.
 - Java와 PostgreSQL은 문자열 길이 계산이 다를 수 있다. 구현 시 이모지 등 보조 문자를 포함한 길이 경계를 확인하고, 입력 검증의 문자 수 기준과 DB 제한이 어긋나지 않게 한다. 사용자에게 보이는 길이 단위를 변경할 필요가 발견되면 요구사항부터 확인한다.
 - 시간은 특정 지역의 벽시계 값이 아니라 같은 순간을 나타내는 Instant로 다룬다. timestamptz는 원래 지역명이나 입력 Offset을 보존하는 타입이 아니다. DB 연결 / 조회 세션은 UTC로 맞추고 API는 기존 계약대로 UTC 문자열을 반환한다.
-- 공통 application.yaml의 Hikari connection-init-sql로 새 DB 연결마다 SET TIME ZONE 'UTC'를 실행한다. PostgreSQL JDBC가 JVM 시간대를 접속 시 전달하므로 Compose의 서버 기본 시간대만으로 애플리케이션 연결 세션의 UTC를 보장하지 않는다. 2026-10-09 최종 검토에서 현재 드라이버의 기본 연결이 Asia/Seoul임을 확인하고 설정을 보완했으며, SQL assertion 테스트와 local Profile의 실제 Spring DataSource 연결에서 UTC를 검증했다.
+- 공통 application.yaml의 Hikari connection-init-sql로 새 DB 연결마다 SET TIME ZONE 'UTC'를 실행한다. PostgreSQL JDBC가 JVM 시간대를 접속 시 전달하므로 Compose의 서버 기본 시간대만으로 애플리케이션 연결 세션의 UTC를 보장하지 않는다. 실제 연결 세션의 시간대는 SQL assertion과 로컬 Spring 연결로 검증한다.
 - 시간 생성 책임은 애플리케이션 하나로 둔다. Service에서 주입 가능한 Clock으로 시각을 얻고 DB 정밀도에 맞춰 마이크로초 단위로 맞춘 뒤 저장한다. 작성 시 하나의 값을 두 컬럼에 함께 넣고, 수정 시 created_at은 유지하며 updated_at을 다시 기록한다. DB DEFAULT나 Trigger와 중복 관리하지 않는다.
 
 선택 근거: [PostgreSQL Identity](https://www.postgresql.org/docs/18/ddl-identity-columns.html), [문자열 타입](https://www.postgresql.org/docs/18/datatype-character.html), [시간 타입](https://www.postgresql.org/docs/18/datatype-datetime.html). 실제 Hibernate 매핑과 시간 왕복 결과는 PostgreSQL 테스트로 확인한다.
@@ -191,7 +191,7 @@ Schema 생성·변경은 Flyway가 담당하고 JPA는 매핑을 통해 데이�
 
 ### 7.1 역할과 환경
 
-- Flyway의 첫 SQL Migration은 `V1__create_posts.sql`로 posts 테이블과 제약조건을 생성한다. 실제 파일 작성과 Spring 첫 실행의 V1 적용 성공 로그, 생성 Schema와 이력의 SQL 조회를 확인했다.
+- Flyway의 첫 SQL Migration은 `V1__create_posts.sql`로 posts 테이블과 제약조건을 생성한다. 적용 결과는 Migration 로그와 실제 Schema / 이력의 SQL 조회로 확인한다.
 - Hibernate는 `ddl-auto=validate`로 매핑과 Schema를 검증한다. create / update로 테이블을 변경하지 않는다. 이 validation만으로 모든 CHECK나 Index 정의까지 보장한다고 해석하지 않는다.
 - 적용된 Migration은 수정하지 않고 다음 버전 파일로 변경한다. 기존 개발 / 운영 DB를 삭제해 Schema를 맞추지 않는다.
 - local은 Docker Compose의 PostgreSQL과 데이터를 유지하는 Volume을 사용한다. Testcontainers는 DB 관련 테스트에서 별도의 실제 PostgreSQL을 실행한다. 테스트가 local / production 데이터에 연결되지 않게 분리한다.
@@ -215,12 +215,10 @@ Schema 생성·변경은 Flyway가 담당하고 JPA는 매핑을 통해 데이�
 
 참고: [Spring Boot DB 초기화](https://docs.spring.io/spring-boot/how-to/data-initialization.html), [Spring Boot Testcontainers](https://docs.spring.io/spring-boot/reference/testing/testcontainers.html).
 
-## 8. 초기 설계 완료 판단과 다음 작업
+## 8. 설계 적용과 진행 상태
 
-초기 설계의 완료 조건인 "첫 기능 개발에 필요한 최소 설계"는 사용자 합의로 준비됐다. Domain / API / 저장 구조 / 기술 선택 / Transaction / 검증 기준이 정해졌고, 첫 기능에서 핵심 구조를 처음부터 다시 결정할 필요가 없다. 구현 과정에서 발견되는 문제는 실제 근거에 따라 설계나 요구사항을 변경한다.
+첫 기능 개발의 기준인 Domain / API / 저장 구조 / 기술 선택 / Transaction / 검증 방식은 위 합의를 따른다. 구현 과정에서 발견되는 문제는 실제 근거에 따라 설계나 요구사항을 변경한다.
 
-1. 초기 설계 문서는 [PR #11](https://github.com/yeochang-yoon/simple-board/pull/11)로 main에 반영됐다. [Issue #10](https://github.com/yeochang-yoon/simple-board/issues/10)은 closed / completed이며 완료 조건 네 항목 모두 체크됐다.
-2. PR #11 이후 main 동기화 / 삭제된 원격 브랜치 추적 참조 정리 / Merge된 로컬 작업 브랜치 안전 삭제를 완료했다. Phase 2 종료 정리도 Issue #12 / PR #13으로 완료했다.
-3. Phase 3 Backend 개발 기반 구축은 Issue #14에서 진행 중이다. 첫 Compose / Migration과 중요한 실행 검증은 사용자가 직접 경험하도록 안내한다. 현재 작업과 다음 진행 위치, 실제 검증 결과는 [PROJECT_STATE.md](PROJECT_STATE.md)를 따른다.
+프로젝트의 현재 Lifecycle 위치, 완료한 Issue / PR과 실행·검증 결과, 다음 재개 위치는 [PROJECT_STATE.md](PROJECT_STATE.md)에서 관리한다. 설계 합의와 실제 구현·검증 결과를 구분한다.
 
-Frontend 기술과 배포 대상은 DEVELOPMENT_PROCESS의 해당 단계에서 결정한다. 설계 합의 완료와 문서 main 반영 완료, 애플리케이션 구현·실행 검증 완료를 각각 구분한다.
+Frontend 기술과 배포 대상은 DEVELOPMENT_PROCESS의 해당 단계에서 결정한다.
