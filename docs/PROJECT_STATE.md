@@ -15,7 +15,7 @@
 - 초기 설계 문서 반영: [PR #11](https://github.com/yeochang-yoon/simple-board/pull/11) merged, [Issue #10](https://github.com/yeochang-yoon/simple-board/issues/10) closed / completed, 완료 조건 네 항목 체크
 - Phase 2 종료 정리: [Issue #12](https://github.com/yeochang-yoon/simple-board/issues/12) closed / completed, [PR #13](https://github.com/yeochang-yoon/simple-board/pull/13) merged. 2026-10-09 실제 Git / GitHub로 완료 및 브랜치 정리 확인
 - 현재 작업: [Issue #14 Backend 개발 기반 구축](https://github.com/yeochang-yoon/simple-board/issues/14), 로컬 브랜치 `chore/14-backend-foundation`
-- 다음 진행 위치: 기반 구축 변경을 Commit / Push하고 PR을 준비해 사용자가 GitHub에서 Diff를 검토한 뒤 Merge. PR 번호와 최신 Commit / 원격 반영 상태는 실제 Git / GitHub로 확인하며, Merge 전까지 Issue #14는 진행 중으로 유지
+- 다음 진행 위치: [PR #15](https://github.com/yeochang-yoon/simple-board/pull/15)의 Diff를 사용자 검토 후 Merge. 기반 구축 변경은 Commit / Push돼 있으며 Merge 전까지 Issue #14는 진행 중으로 유지
 - 로컬 DB 준비 상태: Compose 구성 검증과 PostgreSQL 18.6 컨테이너 기동, IntelliJ DB 접속·SQL 검증 완료. 접속한 DB / 사용자는 simple_board이며 IntelliJ 조회 세션의 시간대는 UTC. JDBC 기본 연결의 Asia/Seoul을 공통 Hikari 설정으로 보완했고, Testcontainers 테스트와 local Profile의 실제 Spring DataSource 연결에서 UTC를 확인
 - 서비스 주제: 아주 간단한 CRUD 게시판 (2026-10-05 사용자 명시 선택)
 - 프로젝트 목적: 간단한 기능으로 웹서비스 개발 전체 Lifecycle을 경험한 뒤, 사용자가 원하는 후속 프로젝트에 적용한다.
@@ -319,3 +319,9 @@ Repository / 협업환경 구성의 완료 조건은 첫 기능을 Issue → Bra
 
 - Issue #14 범위의 코드·설정·문서 24개 파일을 Staging했다. 실제 .env / IDE 설정 / Gradle 캐시 / Build 산출물은 포함되지 않았으며 Staging하지 않은 추적 파일 변경도 없다.
 - 새 파일까지 포함한 git diff --cached --check에서 이미 적용한 V1 SQL 끝의 빈 줄 경고 하나를 확인했다. 기존 git diff --check는 당시 미추적 파일 내용을 검사하지 않았으므로 그 결과와 구분한다. 적용한 Migration 파일은 수정하지 않고 경고를 수용한다. blank-at-eof 경고를 제외한 Staging 공백 검사는 정상이다.
+
+
+## README 역할 정리 (2026-10-09)
+
+- 사용자 지적으로 README에 중복 기록한 Lifecycle 위치 / 완료 이력 / 다음 작업 / 날짜별 검증 결과를 제거했다. README는 프로젝트 소개·범위·기술과 실행 / 테스트 안내를 제공하고, 현재 진행 상태는 이 문서로 연결한다.
+- 기반 구축 Commit 966edef는 원격 작업 브랜치에 반영됐으며 PR #15는 생성된 상태다. README 수정도 같은 PR에 반영하며 Review / Merge 완료로 처리하지 않는다.
