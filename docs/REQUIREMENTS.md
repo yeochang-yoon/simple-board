@@ -1,6 +1,6 @@
 # MVP Requirements
 
-최종 갱신: 2026-10-06 (Asia/Seoul)
+최종 갱신: 2026-10-09 (Asia/Seoul)
 
 상태: Kickoff 및 MVP 세부 요구사항 합의 완료. 2026-10-05 사용자가 세부 요구사항 초안을 그대로 채택했다. 이 문서는 이후 설계·구현·검증의 기준이다.
 
@@ -48,7 +48,7 @@
 
 ## 4. 검증 시나리오
 
-아직 테스트나 애플리케이션을 만들지 않았다. 아래는 이후 구현 완료를 판단할 관찰 가능한 결과이며, 현재 검증을 통과했다는 의미가 아니다.
+Backend 프로젝트와 생성 기본 테스트는 준비됐지만 게시글 기능과 아래 시나리오의 테스트는 아직 구현하지 않았다. 아래는 이후 구현 완료를 판단할 관찰 가능한 결과이며, 현재 검증을 통과했다는 의미가 아니다. 실제 진행 상태와 실행 검증 결과는 [PROJECT_STATE.md](PROJECT_STATE.md)를 따른다.
 
 1. 정상 제목과 본문으로 작성하면 새 글을 식별할 수 있고, 목록·상세에서 저장한 내용을 확인한다.
 2. 글이 없으면 목록 조회가 성공하고 빈 목록을 반환한다.
@@ -64,6 +64,6 @@
 
 Kickoff와 요구사항 문서는 [PR #9](https://github.com/yeochang-yoon/simple-board/pull/9)로 main에 반영했고 [Issue #8](https://github.com/yeochang-yoon/simple-board/issues/8)은 완료 종료했다.
 
-Domain / 저장 구조 / API 계약 / 기술 선택 / Transaction / 검증 계획은 [초기 설계](ARCHITECTURE.md)에서 사용자 합의를 완료했고 [PR #11](https://github.com/yeochang-yoon/simple-board/pull/11)로 main에 반영했다. Issue #10은 closed / completed다. Phase 2 요구사항과 설계는 완료됐으며 Phase 3는 미착수다.
+Domain / 저장 구조 / API 계약 / 기술 선택 / Transaction / 검증 계획은 [초기 설계](ARCHITECTURE.md)에서 사용자 합의를 완료했고 [PR #11](https://github.com/yeochang-yoon/simple-board/pull/11)로 main에 반영했다. Issue #10은 closed / completed다. Phase 2 요구사항과 설계는 완료됐으며 Phase 3 Backend 개발 기반 구축은 진행 중이다.
 
-다음 세션의 재개 위치는 Backend 개발 기반 구축이다. 프로젝트 생성 → PostgreSQL 실행 → 첫 Flyway Migration → JPA 연결·검증 → Testcontainers 기반 테스트 순으로 진행한다. 이번 종료 정리는 상태 문서만 갱신하며 실제 개발·실행 작업은 수행하지 않는다.
+Backend 프로젝트 생성·Gradle 동기화, 로컬 PostgreSQL 실행·접속, 첫 Flyway Migration과 JPA 매핑 검증, 별도 PostgreSQL Testcontainers 기반 테스트를 완료했다. Gradle Build와 실행 가능한 JAR 생성도 확인했다. 최종 검토에서 보완한 DB 연결 세션 UTC 설정도 테스트와 로컬 Spring 연결로 검증했다. 다음은 기반 구축 변경의 PR Review / Merge다. 현재 작업과 검증 결과는 [PROJECT_STATE.md](PROJECT_STATE.md)에 기록한다.
