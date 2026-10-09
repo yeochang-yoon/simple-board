@@ -5,7 +5,7 @@
 ## 현재 Lifecycle 위치
 
 - Phase 2. 요구사항과 설계: 완료
-- Phase 3. Backend 개발: 기반 구축 진행 중. Backend 생성·Gradle 동기화, 로컬 PostgreSQL / IntelliJ SQL 접속, Spring DB 연결·Flyway V1·실제 Schema·이력 및 Post 상속 매핑의 JPA validation을 확인했다. 별도 PostgreSQL Testcontainers 기반 테스트 1개도 통과했다. Gradle Build와 실행 가능한 JAR 생성도 확인했다. 최종 변경 검토와 DB 세션 UTC 보완의 테스트 / 로컬 Spring 검증도 완료했다. PR Review / Merge는 남아 있음
+- Phase 3. Backend 개발: 기반 구축 완료. 로컬 PostgreSQL / Spring 연결, Flyway V1·Schema·이력, Post 상속 매핑의 JPA validation, 별도 PostgreSQL Testcontainers의 DB 세션 UTC assertion과 Build / JAR 생성을 검증했다. 사용자 Review 후 PR #15가 Merge됐고 Issue #14의 완료 조건 네 항목을 충족했다. 다음 단계는 첫 Vertical Slice 개발
 - 개발환경 확인: 완료
 - Repository / 협업환경 구성: 최종 정리까지 완료, 실제 Workflow와 Template 적용 검증 완료
 - Project Kickoff: 범위 합의 완료
@@ -14,16 +14,16 @@
 - 초기 설계: 전체 합의 완료 (2026-10-05). 저장 구조 / 시간 처리 / 정렬·Index / Transaction·실패 처리 / Migration·검증까지 수용
 - 초기 설계 문서 반영: [PR #11](https://github.com/yeochang-yoon/simple-board/pull/11) merged, [Issue #10](https://github.com/yeochang-yoon/simple-board/issues/10) closed / completed, 완료 조건 네 항목 체크
 - Phase 2 종료 정리: [Issue #12](https://github.com/yeochang-yoon/simple-board/issues/12) closed / completed, [PR #13](https://github.com/yeochang-yoon/simple-board/pull/13) merged. 2026-10-09 실제 Git / GitHub로 완료 및 브랜치 정리 확인
-- 현재 작업: [Issue #14 Backend 개발 기반 구축](https://github.com/yeochang-yoon/simple-board/issues/14), 로컬 브랜치 `chore/14-backend-foundation`
-- 다음 진행 위치: [PR #15](https://github.com/yeochang-yoon/simple-board/pull/15)의 Diff를 사용자 검토 후 Merge. 기반 구축 변경은 Commit / Push돼 있으며 Merge 전까지 Issue #14는 진행 중으로 유지
+- 완료한 작업: [Issue #14 Backend 개발 기반 구축](https://github.com/yeochang-yoon/simple-board/issues/14) closed / completed, [PR #15](https://github.com/yeochang-yoon/simple-board/pull/15) merged. 기반 구축 작업 브랜치의 원격 자동 삭제와 로컬 안전 삭제를 확인함
+- 다음 재개 위치: 첫 Vertical Slice 작업 시작 전. 다음 세션에서 현재 상태를 복구한 뒤, 기존 설계의 게시글 작성 POST /api/posts와 후속 상세 조회 GET /api/posts/{id}를 잇는 작업의 범위 / 완료 조건을 사용자와 확인하고 Issue / 작업 브랜치를 준비. 첫 기능의 Issue / 브랜치 생성과 기능 구현은 아직 시작하지 않음
 - 로컬 DB 준비 상태: Compose 구성 검증과 PostgreSQL 18.6 컨테이너 기동, IntelliJ DB 접속·SQL 검증 완료. 접속한 DB / 사용자는 simple_board이며 IntelliJ 조회 세션의 시간대는 UTC. JDBC 기본 연결의 Asia/Seoul을 공통 Hikari 설정으로 보완했고, Testcontainers 테스트와 local Profile의 실제 Spring DataSource 연결에서 UTC를 확인
 - 서비스 주제: 아주 간단한 CRUD 게시판 (2026-10-05 사용자 명시 선택)
 - 프로젝트 목적: 간단한 기능으로 웹서비스 개발 전체 Lifecycle을 경험한 뒤, 사용자가 원하는 후속 프로젝트에 적용한다.
 - 주요 사용자: 게시판에 접근하는 누구나. 회원가입 / 로그인 없이 모든 게시글의 작성·목록 및 상세 조회·수정·삭제가 가능하다.
 - 첫 MVP에서 회원가입, 로그인, 인증/인가, 작성자 구분과 작성자별 수정·삭제 권한을 제외한다.
-- Backend 시작 클래스와 생성 기본 테스트는 준비됐고 게시글 기능 개발은 아직 시작하지 않았다. 입력 제한, 목록 순서, 삭제 방식 등은 [REQUIREMENTS.md](REQUIREMENTS.md)에 확정했다.
+- Backend 시작 클래스와 PostgreSQL 기반 검증 테스트는 준비됐고 게시글 기능 개발은 아직 시작하지 않았다. 입력 제한, 목록 순서, 삭제 방식 등은 [REQUIREMENTS.md](REQUIREMENTS.md)에 확정했다.
 
-Repository / 협업환경 구성의 완료 조건은 첫 기능을 Issue → Branch → PR → Review → Merge 흐름으로 개발할 기반이 준비되는 것이다. 아래의 실제 결과와 최종 정리 종료 조건 재확인으로 이를 충족했다. 아래 날짜별 기록은 당시의 작업 이력이며, 현재는 Phase 2를 완료하고 Phase 3 Backend 개발 기반 구축을 진행 중이다.
+Repository / 협업환경 구성의 완료 조건은 첫 기능을 Issue → Branch → PR → Review → Merge 흐름으로 개발할 기반이 준비되는 것이다. 아래의 실제 결과와 최종 정리 종료 조건 재확인으로 이를 충족했다. 아래 날짜별 기록은 당시의 작업 이력이며, 현재는 Phase 2와 Phase 3 Backend 개발 기반 구축을 완료하고 첫 Vertical Slice 개발을 준비한다.
 
 ## 재개 시 최종 정리 검증 결과 (2026-10-05)
 
@@ -325,3 +325,28 @@ Repository / 협업환경 구성의 완료 조건은 첫 기능을 Issue → Bra
 
 - 사용자 지적으로 README에 중복 기록한 Lifecycle 위치 / 완료 이력 / 다음 작업 / 날짜별 검증 결과를 제거했다. README는 프로젝트 소개·범위·기술과 실행 / 테스트 안내를 제공하고, 현재 진행 상태는 이 문서로 연결한다.
 - 기반 구축 Commit 966edef는 원격 작업 브랜치에 반영됐으며 PR #15는 생성된 상태다. README 수정도 같은 PR에 반영하며 Review / Merge 완료로 처리하지 않는다.
+
+
+## Backend 기반 구축 Merge와 Git 정리 완료 (2026-10-09)
+
+- 사용자가 PR #15의 수정된 Diff를 확인한 뒤 GitHub에서 Merge했다. 실제 PR은 MERGED이며 Merge Commit은 7faebe1789673b2a64ed16c6bb02603c328163c2다. Issue #14는 CLOSED / COMPLETED이며 완료 조건 네 항목을 모두 체크했다.
+- Codex가 fetch --prune 후 main으로 전환해 origin/main으로 Fast-forward 동기화했다. 원격 작업 브랜치의 자동 삭제를 확인했고, main에 포함된 것을 확인한 뒤 chore/14-backend-foundation 로컬 브랜치를 -d로 안전 삭제했다.
+- 기반 구축 Merge 후 동기화와 브랜치 정리 직후 작업 트리는 깨끗했다. 이후 이 상태 문서에 완료 기록과 다음 진행 위치를 갱신해 문서 1건의 미커밋 변경이 남았다. 해당 변경은 보존해 아래의 이번 세션 최종 문서 정리에 포함한다. README와 Backend / DB는 변경하지 않았다.
+- 다음은 DEVELOPMENT_PROCESS 10절의 첫 Vertical Slice다. ARCHITECTURE에 합의한 게시글 작성과 후속 상세 조회 흐름으로 범위·완료 조건을 확인한 뒤 Issue / 브랜치를 준비한다. CRUD 전체나 CI를 동시에 구현하지 않는다.
+
+
+## 이번 세션 최종 문서 정리와 인계 기준 (2026-10-09)
+
+- 사용자는 Backend 개발 기반 구축 완료 시점에서 세션을 종료하기로 했다. 이번 최종 정리는 PROJECT_STATE / ARCHITECTURE / REQUIREMENTS 세 문서에 한정하며, 기존 PROJECT_STATE의 미커밋 완료 기록을 보존해 포함한다. 새 Issue나 기능 구현은 시작하지 않는다.
+- 완료 상태 / 실행·검증 결과 / 다음 재개 위치는 이 문서를 기준으로 한다. REQUIREMENTS는 요구사항과 검증 시나리오, ARCHITECTURE는 설계와 구현 기준을 제공하며 현재 진행 상태를 중복 관리하지 않는다. README는 프로젝트 소개와 실행 / Build / Test 안내를 제공한다.
+- 종료 점검에서 로컬 main / origin/main / GitHub main이 PR #15의 Merge Commit 7faebe1789673b2a64ed16c6bb02603c328163c2로 일치했고 작업 브랜치와 미추적 파일은 없었다. 이는 기반 구축 Merge 후의 점검 시점 기록이다. 최종 문서 PR이 반영된 뒤의 최신 SHA와 작업 트리 상태는 실제 Git / GitHub 조회로 확인한다.
+- 종료 점검의 실제 DB는 PostgreSQL 18.6 / simple_board / UTC이며 Flyway V1 성공 이력과 posts의 Identity / 입력 길이 / NOT NULL / CHECK / timestamptz(6)가 파일과 일치했다. 최신 databaseSessionUsesUtc 테스트는 1개 통과 / 실패·오류·건너뜀 0개이며 Build 성공과 JAR의 설정·Migration 포함을 확인했다.
+- 아직 구현·검증하지 않은 범위는 게시글 CRUD API, Repository / Service / Controller / DTO, Clock을 사용한 시각 생성·변경, ID 생성·시간 왕복·게시글 저장·조회 및 CI다. 이 항목들은 다음 Lifecycle 작업이며 기반 구축 완료에 포함하지 않는다.
+
+최종 문서 PR은 사용자가 Review / Merge한다. Merge 후 Codex는 다음을 실제 결과로 확인하고 세션을 종료한다.
+
+1. 최종 문서 변경이 GitHub main에 반영됐고 로컬 main / origin/main / GitHub main의 SHA가 일치한다.
+2. Merge된 원격 / 로컬 작업 브랜치와 삭제된 원격의 추적 참조가 정리됐으며 미커밋 / 미추적 파일이 없다.
+3. 새 세션이 AGENTS / 전체 DEVELOPMENT_PROCESS / 이 문서 / REQUIREMENTS / ARCHITECTURE / README와 실제 Git / GitHub를 읽어 기반 구축 완료와 첫 Vertical Slice 미착수를 복구할 수 있다.
+
+최종 문서 PR 자체의 Merge 결과를 다시 기록하기 위한 추가 Commit / PR은 만들지 않는다. 위 종료 조건의 충족 여부와 최신 Commit은 실제 Git / GitHub로 검증해 사용자에게 보고한다. 다음 세션은 첫 Vertical Slice 작업을 시작하기 전의 범위·완료 조건 확인부터 재개한다.

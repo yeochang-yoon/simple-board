@@ -2,7 +2,7 @@
 
 최종 갱신: 2026-10-09 (Asia/Seoul)
 
-상태: Kickoff 및 MVP 세부 요구사항 합의 완료. 2026-10-05 사용자가 세부 요구사항 초안을 그대로 채택했다. 이 문서는 이후 설계·구현·검증의 기준이다.
+2026-10-05 사용자가 첫 MVP 범위와 세부 요구사항을 수용했다. 이 문서는 이후 설계·구현·검증의 기준이다.
 
 ## 1. Kickoff 결과 — 확정
 
@@ -48,7 +48,7 @@
 
 ## 4. 검증 시나리오
 
-Backend 프로젝트와 생성 기본 테스트는 준비됐지만 게시글 기능과 아래 시나리오의 테스트는 아직 구현하지 않았다. 아래는 이후 구현 완료를 판단할 관찰 가능한 결과이며, 현재 검증을 통과했다는 의미가 아니다. 실제 진행 상태와 실행 검증 결과는 [PROJECT_STATE.md](PROJECT_STATE.md)를 따른다.
+아래는 게시글 기능의 구현 완료를 판단할 관찰 가능한 결과이며, 실행·검증 결과 자체가 아니다. 실제 구현 상태와 검증 결과는 [PROJECT_STATE.md](PROJECT_STATE.md)를 따른다.
 
 1. 정상 제목과 본문으로 작성하면 새 글을 식별할 수 있고, 목록·상세에서 저장한 내용을 확인한다.
 2. 글이 없으면 목록 조회가 성공하고 빈 목록을 반환한다.
@@ -60,10 +60,8 @@ Backend 프로젝트와 생성 기본 테스트는 준비됐지만 게시글 기
 8. 별도의 사용자 인증 없이 위 기능을 수행할 수 있다.
 9. 글을 저장하고 애플리케이션을 재시작한 뒤에도 조회할 수 있다.
 
-## 5. 다음 작업
+## 5. 관련 설계와 진행 상태
 
-Kickoff와 요구사항 문서는 [PR #9](https://github.com/yeochang-yoon/simple-board/pull/9)로 main에 반영했고 [Issue #8](https://github.com/yeochang-yoon/simple-board/issues/8)은 완료 종료했다.
+Domain / 저장 구조 / API 계약 / 기술 선택 / Transaction / 검증 방식은 [초기 설계](ARCHITECTURE.md)를 따른다.
 
-Domain / 저장 구조 / API 계약 / 기술 선택 / Transaction / 검증 계획은 [초기 설계](ARCHITECTURE.md)에서 사용자 합의를 완료했고 [PR #11](https://github.com/yeochang-yoon/simple-board/pull/11)로 main에 반영했다. Issue #10은 closed / completed다. Phase 2 요구사항과 설계는 완료됐으며 Phase 3 Backend 개발 기반 구축은 진행 중이다.
-
-Backend 프로젝트 생성·Gradle 동기화, 로컬 PostgreSQL 실행·접속, 첫 Flyway Migration과 JPA 매핑 검증, 별도 PostgreSQL Testcontainers 기반 테스트를 완료했다. Gradle Build와 실행 가능한 JAR 생성도 확인했다. 최종 검토에서 보완한 DB 연결 세션 UTC 설정도 테스트와 로컬 Spring 연결로 검증했다. 다음은 기반 구축 변경의 PR Review / Merge다. 현재 작업과 검증 결과는 [PROJECT_STATE.md](PROJECT_STATE.md)에 기록한다.
+현재 Lifecycle 위치, 완료한 Issue / PR과 실행·검증 결과, 다음 재개 위치는 [PROJECT_STATE.md](PROJECT_STATE.md)에서 관리한다. 요구사항 합의와 실제 기능 구현·검증 결과를 구분한다.
